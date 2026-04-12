@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Licenciatura, UnidadeCurricular
 
-# Register your models here.
+admin.site.register(Licenciatura)
+admin.site.register(UnidadeCurricular)
