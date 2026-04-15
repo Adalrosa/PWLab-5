@@ -13,3 +13,9 @@ class Projecto(models.Model):
     titulo = models.CharField(max_length=100)
     descricao = models.TextField()
     unidade_curricular = models.ForeignKey(UnidadeCurricular, on_delete=models.CASCADE)
+    tecnologias = models.ManyToManyField('tecnologia')
+
+class tecnologia(models.Model):
+    nome = models.CharField(max_length=50)
+    def __str__(self):
+        return self.nome
