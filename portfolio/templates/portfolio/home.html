@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfólio Rosa</title>
+</head>
+<body>
+    <h1> Meu Portfólio de Informática</h1>
+
+    <section>
+        <h2>As Minhas Competências</h2>
+        {% for comp in competencias %}
+            <div>
+                <strong>{{ comp.nome }}</strong>: {{ comp.descricao }}
+            </div>
+        {% empty %}
+            <p>Ainda não registaste competências no Admin.</p>
+        {% endfor %}
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Projetos Realizados</h2>
+        {% for proj in projetos %}
+            <div>
+                <h3>{{ proj.titulo }}</h3>
+                <p>{{ proj.descricao }}</p>
+                {% if proj.imagem %}
+                    <img src="{{ proj.imagem.url }}" width="300">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </section>
+</body>
+</html>
