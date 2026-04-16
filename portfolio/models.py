@@ -38,3 +38,33 @@ class tecnologia(models.Model):
     link_website = models.URLField(blank=True)
     def __str__(self):
         return self.nome
+    
+class TFC(models.Model):
+        titulo = models.CharField(max_length=200)
+        autores = models.CharField(max_length=200) 
+        ano = models.IntegerField()
+        resumo = models.TextField()
+        imagem = models.ImageField(upload_to='tfc/', blank=True, null=True)
+        link_relatorio = models.URLField(blank=True)
+        link_github = models.URLField(blank=True)
+        video_demo = models.URLField(blank=True)
+
+        def __str__(self):
+            return self.titulo
+
+class Competencia(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField(blank=True)
+    logotipo = models.ImageField(upload_to='tecnologias/', blank=True, null=True)
+
+    def __str__(self):
+        return self.nome
+
+class MakingOf(models.Model):
+    data = models.DateField()
+    etapa = models.CharField(max_length=100)
+    descricao = models.TextField()
+    imagem = models.ImageField(upload_to='makingof/', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.data} - {self.etapa}"
