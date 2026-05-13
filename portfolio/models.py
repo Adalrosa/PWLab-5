@@ -1,23 +1,35 @@
 from django.db import models
 
 class Licenciatura(models.Model):
- nome=models.CharField(max_length=100)
- apresentacao=models.TextField()
+    nome = models.CharField(max_length=100)
+    apresentacao = models.TextField()
 
- def __str__(self):
+    def __str__(self):
         return self.nome
 
 class UnidadeCurricular(models.Model):
- nome= models.CharField(max_length=100)
- ano=models.IntegerField()
- semestre=models.CharField(max_length=20)
- ects=models.IntegerField(default=6)
- imagem = models.ImageField(upload_to='ucs/', blank=True, null=True)
- link_docente_lusofona = models.URLField(blank=True)
- licenciatura= models.ForeignKey(Licenciatura, on_delete=models.CASCADE)
+    nome = models.CharField(max_length=100)
+    ano = models.IntegerField()
+    semestre = models.CharField(max_length=20)
+    ects = models.IntegerField(default=6)
+    imagem = models.ImageField(upload_to='ucs/', blank=True, null=True)
+    link_docente_lusofona = models.URLField(blank=True)
+    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE)
 
- def __str__(self):
-    return self.nome
+    def __str__(self):
+        return self.nome
+
+class tecnologia(models.Model):
+    nome = models.CharField(max_length=50)
+    acronymo = models.CharField(max_length=10, blank=True)
+    logotipo = models.ImageField(upload_to='tecnologias/', blank=True, null=True)
+    link_website = models.URLField(blank=True)
+    # ATUALIZAÇÃO: Requisitos mínimos de Tecnologia
+    nivel_interesse = models.IntegerField(default=1, help_text="Escala de 1 a 5")
+    relevancia = models.TextField(blank=True) 
+
+    def __str__(self):
+        return self.nome
 
 class Projecto(models.Model):
     titulo = models.CharField(max_length=100)
@@ -27,44 +39,62 @@ class Projecto(models.Model):
     link_github = models.URLField(blank=True)
     video_demo = models.URLField(blank=True)
     unidade_curricular = models.ForeignKey(UnidadeCurricular, on_delete=models.CASCADE)
-    tecnologias = models.ManyToManyField('tecnologia')
+    tecnologias = models.ManyToManyField(tecnologia)
+    
     def __str__(self):
         return self.titulo
 
-class tecnologia(models.Model):
-    nome = models.CharField(max_length=50)
-    acronymo = models.CharField(max_length=10, blank=True)
-    logotipo = models.ImageField(upload_to='tecnologias/', blank=True, null=True)
-    link_website = models.URLField(blank=True)
-    def __str__(self):
-        return self.nome
-    
 class TFC(models.Model):
-        titulo = models.CharField(max_length=200)
-        autores = models.CharField(max_length=200) 
-        ano = models.IntegerField()
-        resumo = models.TextField()
-        imagem = models.ImageField(upload_to='tfc/', blank=True, null=True)
-        link_relatorio = models.URLField(blank=True)
-        link_github = models.URLField(blank=True)
-        video_demo = models.URLField(blank=True)
+    titulo = models.CharField(max_length=200)
+    autores = models.CharField(max_length=200) 
+    ano = models.IntegerField()
+    resumo = models.TextField()
+    imagem = models.ImageField(upload_to='tfc/', blank=True, null=True)
+    link_relatorio = models.URLField(blank=True)
+    link_github = models.URLField(blank=True)
+    video_demo = models.URLField(blank=True)
 
-        def __str__(self):
-            return self.titulo
+    def __str__(self):
+        return self.titulo
 
 class Competencia(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField(blank=True)
-    logotipo = models.ImageField(upload_to='tecnologias/', blank=True, null=True)
+    logotipo = models.ImageField(upload_to='competencias/', blank=True, null=True)
+    # ATUALIZAÇÃO: Relações exigidas
+    projetos = models.ManyToManyField(Projecto, blank=True)
+    tecnologias = models.ManyToManyField(tecnologia, blank=True)
 
     def __str__(self):
         return self.nome
+
+class Formacao(models.Model): # NOVO: Requisito de Formações
+    titulo = models.CharField(max_length=100)
+    instituicao = models.CharField(max_length=100)
+    ano_inicio = models.IntegerField()
+    ano_fim = models.IntegerField(blank=True, null=True) 
+    descricao = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.titulo
 
 class MakingOf(models.Model):
     data = models.DateField()
     etapa = models.CharField(max_length=100)
     descricao = models.TextField()
     imagem = models.ImageField(upload_to='makingof/', blank=True, null=True)
+    # ATUALIZAÇÃO: Requisitos de documentação e IA
+    decisao = models.TextField(blank=True)
+    uso_ia = models.TextField(blank=True)
 
     def __str__(self):
         return f"{self.data} - {self.etapa}"
+
+# REQUISITO ADICIONAL: Entidade extra para valorização
+class Interesse(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField()
+    icone = models.ImageField(upload_to='interesses/', blank=True, null=True)
+
+    def __str__(self):
+        return self.nome
