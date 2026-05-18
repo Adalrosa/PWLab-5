@@ -1,0 +1,8 @@
+<h2>Pedir Link Mágico</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Insira o seu Email:</label>
+    <input type="email" name="email" required>
+    <button type="submit">Enviar Link</button>
+</form>
+<p><a href="{% url 'accounts:login' %}">Voltar ao login normal</a></p>

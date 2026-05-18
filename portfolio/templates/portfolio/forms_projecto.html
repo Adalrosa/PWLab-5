@@ -1,0 +1,27 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>🔧 Gestão de Projeto</h2>
+    <p>Utilize o formulário abaixo para inserir ou atualizar as informações do seu projeto.</p>
+    <hr>
+    
+    <form method="POST" enctype="multipart/form-data" style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+        {% csrf_token %}
+        
+        <div class="django-form">
+            {{ form.as_p }}
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn-save" style="padding: 10px 25px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Guardar Projeto
+            </button>
+            
+            <a href="{% url 'portfolio:home' %}" style="margin-left: 15px; color: #666; text-decoration: none;">
+                Cancelar e Voltar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

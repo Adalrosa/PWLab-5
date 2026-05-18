@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Iniciar Sessão</title>
+</head>
+<body>
+    <div class="login-container" style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: sans-serif;">
+        <h2>Iniciar Sessão (Portfólio)</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <p>
+                <label>Utilizador:</label><br>
+                <input type="text" name="username" required style="width: 100%; padding: 8px; margin-top: 5px;">
+            </p>
+            <p>
+                <label>Palavra-passe:</label><br>
+                <input type="password" name="password" required style="width: 100%; padding: 8px; margin-top: 5px;">
+            </p>
+            <button type="submit" style="background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%;">Entrar com Senha</button>
+        </form>
+
+        <hr style="margin: 20px 0;">
+        <h3>Alternativa sem Palavra-passe:</h3>
+        <p>👉 <a href="{% url 'accounts:magic_request' %}">Entrar usando um Link Mágico</a></p>
+        <p>Ainda não tem conta? <a href="{% url 'accounts:registo' %}">Registe-se aqui</a></p>
+        <p><a href="{% url 'portfolio:home' %}">Voltar para a Página Inicial</a></p>
+    </div>
+</body>
+</html>

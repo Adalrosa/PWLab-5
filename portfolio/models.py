@@ -19,12 +19,11 @@ class UnidadeCurricular(models.Model):
     def __str__(self):
         return self.nome
 
-class tecnologia(models.Model):
+class Tecnologia(models.Model):
     nome = models.CharField(max_length=50)
     acronymo = models.CharField(max_length=10, blank=True)
-    logotipo = models.ImageField(upload_to='tecnologias/', blank=True, null=True)
+    logotipo = models.ImageField(upload_to='Tecnologias/', blank=True, null=True)
     link_website = models.URLField(blank=True)
-    # ATUALIZAÇÃO: Requisitos mínimos de Tecnologia
     nivel_interesse = models.IntegerField(default=1, help_text="Escala de 1 a 5")
     relevancia = models.TextField(blank=True) 
 
@@ -39,7 +38,7 @@ class Projecto(models.Model):
     link_github = models.URLField(blank=True)
     video_demo = models.URLField(blank=True)
     unidade_curricular = models.ForeignKey(UnidadeCurricular, on_delete=models.CASCADE)
-    tecnologias = models.ManyToManyField(tecnologia)
+    tecnologias = models.ManyToManyField(Tecnologia)
     
     def __str__(self):
         return self.titulo
@@ -61,14 +60,13 @@ class Competencia(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField(blank=True)
     logotipo = models.ImageField(upload_to='competencias/', blank=True, null=True)
-    # ATUALIZAÇÃO: Relações exigidas
     projetos = models.ManyToManyField(Projecto, blank=True)
-    tecnologias = models.ManyToManyField(tecnologia, blank=True)
+    tecnologias = models.ManyToManyField(Tecnologia, blank=True)
 
     def __str__(self):
         return self.nome
 
-class Formacao(models.Model): # NOVO: Requisito de Formações
+class Formacao(models.Model): 
     titulo = models.CharField(max_length=100)
     instituicao = models.CharField(max_length=100)
     ano_inicio = models.IntegerField()
@@ -83,18 +81,19 @@ class MakingOf(models.Model):
     etapa = models.CharField(max_length=100)
     descricao = models.TextField()
     imagem = models.ImageField(upload_to='makingof/', blank=True, null=True)
-    # ATUALIZAÇÃO: Requisitos de documentação e IA
     decisao = models.TextField(blank=True)
     uso_ia = models.TextField(blank=True)
 
     def __str__(self):
         return f"{self.data} - {self.etapa}"
 
-# REQUISITO ADICIONAL: Entidade extra para valorização
 class Interesse(models.Model):
-    nome = models.CharField(max_length=100)
-    descricao = models.TextField()
+    nome = models.CharField(max_length=100, verbose_name="Nome do Interesse")
     icone = models.ImageField(upload_to='interesses/', blank=True, null=True)
 
     def __str__(self):
         return self.nome
+
+    class Meta:
+        verbose_name = "Interesse"
+        verbose_name_plural = "Interesses"
