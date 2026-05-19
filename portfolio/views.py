@@ -9,10 +9,9 @@ def home_page_view(request):
     context = {
         'projectos': Projecto.objects.all(),
         'competencias': Competencia.objects.all(),
-        'interesses': Interesse.objects.all(),   # Mantemos apenas os interesses
+        'interesses': Interesse.objects.all(),
     }
     return render(request, 'portfolio/home.html', context)
-
 
 def forms_projecto_view(request):
     form = ProjectoForm(request.POST or None, request.FILES or None)
@@ -21,12 +20,10 @@ def forms_projecto_view(request):
         return redirect('portfolio:home')
     return render(request, 'portfolio/forms.html', {'form': form})
 
-
 def apagar_projecto_view(request, projecto_id):
     projecto = get_object_or_404(Projecto, id=projecto_id)
     projecto.delete()
     return redirect('portfolio:home')
-
 
 def editar_projecto_view(request, projecto_id):
     projecto = get_object_or_404(Projecto, id=projecto_id)

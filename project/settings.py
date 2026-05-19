@@ -14,14 +14,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# 3. Aplicações do Projeto
+# 3. Aplicações do Projeto (Atualizado com Cloudinary)
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "cloudinary_storage",           # <-- Inserido antes do staticfiles
     "django.contrib.staticfiles",
+    "cloudinary",                   # <-- Inserido após o staticfiles
     "portfolio",
     "accounts",
 ]
@@ -29,9 +31,10 @@ INSTALLED_APPS = [
 LOGIN_REDIRECT_URL = 'portfolio:home'
 LOGOUT_REDIRECT_URL = 'portfolio:home'
 
-# 4. Middlewares
+# 4. Middlewares (Atualizado com WhiteNoise)
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # <-- WhiteNoise para ficheiros estáticos
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -87,10 +90,13 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# 9. Ficheiros Estáticos e Media locais (temporários)
+# 9. Ficheiros Estáticos e Armazenamento Cloudinary para Media (Limpo)
 STATIC_URL = "static/"
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 10. Configurações extra
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -1,10 +1,12 @@
-{% load portfolio_extras %}  <!DOCTYPE html>
-<html>
+{% load portfolio_extras %}
+<!DOCTYPE html>
+<html lang="pt-pt">
 <head>
+    <meta charset="UTF-8">
     <title>Portfólio Rosa</title>
 </head>
 <body>
-    <h1> Meu Portfólio de Informática</h1>
+    <h1>Meu Portfólio de Informática</h1>
 
     <header style="background: #f4f4f4; padding: 10px; margin-bottom: 20px;">
         {% if user.is_authenticated %}
@@ -36,12 +38,13 @@
             </div>
         {% endif %}
 
-        {% for proj in projetos %}
+        {% for proj in projectos %}
             <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 15px;">
                 <h3>{{ proj.titulo }}</h3>
                 <p>{{ proj.descricao }}</p>
+                
                 {% if proj.imagem %}
-                    <img src="{{ proj.imagem.url }}" width="300">
+                    <img src="{{ proj.imagem.url }}" width="300" alt="{{ proj.titulo }}">
                 {% endif %}
 
                 {% if user|has_group:"gestor-portfolio" %}
