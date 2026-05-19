@@ -12,7 +12,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = "django-insecure-h+0%xfs3n)!3j6$4lx*kqm^je*j-a(zql4u_t*r1!mfvzyc82+"
 DEBUG = True
 
-ALLOWED_HOSTS = ['portfolio-adalrosa.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # 3. Aplicações do Projeto (Atualizado com Cloudinary)
 INSTALLED_APPS = [
