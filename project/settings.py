@@ -64,8 +64,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "project.wsgi.application"
 
 # 6. Ligação à Base de Dados do Neon (lida diretamente do .env)
+# 6. Ligação à Base de Dados do Neon (Lê do Render ou do .env local)
+import dj_database_url
+
 DATABASES = {
-    "default": env.db("DATABASE_URL")
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 # 7. Validação de Passwords
