@@ -1,0 +1,32 @@
+{% extends 'portfolio/base.html' %}
+{% load portfolio_extras %}
+
+{% block content %}
+    <h2>Os Meus Projetos</h2>
+
+    {% if user|has_group:"gestor-portfolio" %}
+        <div style="margin-bottom: 15px;">
+            <a href="{% url 'portfolio:editar_projecto' 0 %}" style="background-color: green; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px;">+ Adicionar Novo Projeto</a>
+        </div>
+    {% endif %}
+
+    {% for proj in projectos %}
+        <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 15px;">
+            <h3>{{ proj.titulo }}</h3>
+            <p>{{ proj.descricao }}</p>
+            
+            {% if proj.imagem %}
+                <img src="{{ proj.imagem.url }}" width="300" alt="{{ proj.titulo }}">
+            {% endif %}
+
+            {% if user|has_group:"gestor-portfolio" %}
+                <div style="margin-top: 10px;">
+                    <a href="{% url 'portfolio:editar_projecto' proj.id %}" style="background-color: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; margin-right: 10px;">Editar</a>
+                    <a href="{% url 'portfolio:apagar_projecto' proj.id %}" style="background-color: #dc3545; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px;">Apagar</a>
+                </div>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Ainda não há projetos registados.</p>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+    <h2>As Minhas Competências</h2>
+    <div style="margin-top: 20px;">
+        {% for comp in competencias %}
+            <div style="padding: 10px; border-bottom: 1px solid #eee;">
+                <strong>{{ comp.nome }}</strong>
+                <p>{{ comp.descricao }}</p>
+            </div>
+        {% empty %}
+            <p>Ainda não foram registadas competências.</p>
+        {% endfor %}
+    </div>
+{% endblock content %}

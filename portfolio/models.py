@@ -89,7 +89,16 @@ class MakingOf(models.Model):
 
 class Interesse(models.Model):
     nome = models.CharField(max_length=100, verbose_name="Nome do Interesse")
+    descricao = models.TextField(verbose_name="Descrição", default="")
     icone = models.ImageField(upload_to='interesses/', blank=True, null=True)
+    
+    # As novas relações que o exercício pede
+    projetos = models.ManyToManyField(Projecto, blank=True)
+    disciplinas = models.ManyToManyField(UnidadeCurricular, blank=True)
+    tecnologias = models.ManyToManyField(Tecnologia, blank=True)
+    
+    # Campo para identificar a área preferida (Ponto 4.4 do exercício)
+    e_preferido = models.BooleanField(default=False, verbose_name="É a área preferida?")
 
     def __str__(self):
         return self.nome

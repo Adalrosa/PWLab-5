@@ -1,0 +1,21 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+    <h2>Preencha os Dados</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        <br>
+        <button type="submit" style="background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+            Guardar
+        </button>
+        
+        <a href="{% url 'portfolio:interesses' %}" style="margin-left: 15px; text-decoration: none; color: #dc3545;">
+            Cancelar
+        </a>
+    </form>
+{% endblock content %}

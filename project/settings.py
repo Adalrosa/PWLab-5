@@ -105,6 +105,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'o_teu_cloud_name_aqui',
+    'API_KEY': 'a_tua_api_key_aqui',
+    'API_SECRET': 'o_teu_api_secret_aqui'
+}
+
 
 # 10. Configurações extra
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

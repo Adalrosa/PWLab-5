@@ -1,0 +1,26 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+    <h1>Detalhes do Interesse: {{ interesse.nome }}</h1>
+    
+    <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <p><strong>Descrição:</strong> {{ interesse.descricao }}</p>
+
+        {% if interesse.icone %}
+            <br>
+            <img src="{{ interesse.icone.url }}" width="150" alt="Ícone de {{ interesse.nome }}">
+        {% endif %}
+    </div>
+
+    <h3>Projetos Associados:</h3>
+    <ul>
+        {% for proj in interesse.projetos.all %}
+            <li>{{ proj.titulo }}</li>
+        {% empty %}
+            <li>Ainda não há projetos associados a esta área.</li>
+        {% endfor %}
+    </ul>
+
+    <br><br>
+    <a href="{% url 'portfolio:interesses' %}" style="padding: 8px 12px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">&larr; Voltar à lista de Interesses</a>
+{% endblock content %}

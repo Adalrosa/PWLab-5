@@ -1,0 +1,33 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+    <h2>Os Meus Interesses Profissionais</h2>
+
+    <a href="{% url 'portfolio:novo_interesse' %}" style="padding: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+        + Adicionar Novo Interesse
+    </a>
+    <br><br>
+
+    {% if interesse_preferido %}
+        <div style="background-color: #f0f8ff; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+            <strong>A Minha Área de Eleição:</strong> 
+            <a href="{% url 'portfolio:detalhe_interesse' interesse_preferido.id %}" style="text-decoration: none; font-weight: bold; color: #0056b3;">
+                {{ interesse_preferido.nome }}
+            </a>
+        </div>
+    {% endif %}
+
+    <ul>
+        {% for interesse in interesses %}
+            <li style="margin-bottom: 10px;">
+                <a href="{% url 'portfolio:detalhe_interesse' interesse.id %}" style="font-size: 18px;">
+                    <strong>{{ interesse.nome }}</strong>
+                </a>
+                <br>
+                <small>Projetos associados: {{ interesse.num_projetos }}</small>
+            </li>
+        {% empty %}
+            <li>Ainda não existem áreas de interesse registadas no Admin.</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
