@@ -6,12 +6,16 @@
 </head>
 <body>
 
-    <nav style="margin-bottom: 20px;">
-        <a href="{% url 'portfolio:home' %}">Página Inicial</a> | 
-        <a href="{% url 'portfolio:interesses' %}">Interesses Profissionais</a>
-        <a href="{% url 'portfolio:projectos' %}">Projetos</a> |
-        <a href="{% url 'portfolio:competencias' %}">Competências</a> |
-    </nav>
+  <nav style="margin-bottom: 20px;">
+    <a href="{% url 'portfolio:home' %}">Página Inicial</a> | 
+    <a href="{% url 'portfolio:interesses' %}">Interesses Profissionais</a> |
+    <a href="{% url 'portfolio:projectos' %}">Projetos</a> |
+    <a href="{% url 'portfolio:competencias' %}">Competências</a> |
+    <a href="{% url 'portfolio:ucs' %}">UCs</a> |
+    <a href="{% url 'portfolio:makingof' %}">Making Of</a> |
+    <a href="{% url 'portfolio:sobre' %}">Sobre</a> |
+    <a href="{% url 'portfolio:tecnologias' %}">Tecnologias</a> |
+  </nav>
 
     <main>
         {% block content %}

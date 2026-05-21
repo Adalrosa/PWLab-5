@@ -1,0 +1,20 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+    <h2>Tecnologias e Ferramentas</h2>
+    <p>Tecnologias que estou a aprender e a aplicar:</p>
+
+    <ul>
+        {% for tech in tecnologias %}
+            <li>
+                <strong>{{ tech.nome }}</strong> 
+                {% if tech.acronymo %}({{ tech.acronymo }}){% endif %}
+                <br>
+                <em>Nível de Interesse: {{ tech.nivel_interesse }}/5</em>
+                <p>{{ tech.relevancia }}</p>
+            </li>
+        {% empty %}
+            <li>Ainda não adicionei tecnologias ao sistema.</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
